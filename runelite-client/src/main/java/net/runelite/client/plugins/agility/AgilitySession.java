@@ -60,12 +60,22 @@ class AgilitySession
 			nextLevel++;
 		} while (remainingXp < 0);
 
-		lapsTillLevel = remainingXp > 0 ? (int) Math.ceil(remainingXp / course.getTotalXp()) : 0;
+		lapsTillLevel = remainingXp > 0 ? (int) Math.ceil(remainingXp / lapTotalXp(nextLevel)) : 0;
 	}
 
 	void resetLapCount()
 	{
 		totalLaps = 0;
 		lapsTillLevel = 0;
+	}
+
+	private int lapTotalXp(int nextLevel)
+	{
+		switch(course) {
+			case PYRAMID:
+				return (int) course.getTotalXp() + 300 + 8 * (nextLevel - 1);
+			default:
+				return (int) course.getTotalXp();
+		}
 	}
 }
